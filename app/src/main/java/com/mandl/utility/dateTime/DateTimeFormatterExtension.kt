@@ -1,7 +1,6 @@
 package com.mandl.utility.dateTime
 
-import java.time.LocalDate
-import java.time.LocalDateTime
+import java.time.*
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -48,7 +47,6 @@ fun Date.addDays(days: Int): Date {
     calendar.add(Calendar.DAY_OF_MONTH, days)
     return calendar.time
 }
-
 
 // Add or Subtract Months
 fun Date.addMonths(months: Int): Date {
@@ -98,4 +96,11 @@ infix fun Date.daysUntil(endDate: Date): Long {
     endCalendar.time = endDate
     val diffInMillis = endCalendar.timeInMillis - startCalendar.timeInMillis
     return diffInMillis / (24 * 60 * 60 * 1000)
+}
+
+// Extension function to determine the time zone offset for a date
+fun Date.getTimeZoneOffset(timeZoneId: String): ZoneOffset {
+    val zoneId = ZoneId.of(timeZoneId)
+    val zonedDateTime = ZonedDateTime.ofInstant(this.toInstant(), zoneId)
+    return zonedDateTime.offset
 }

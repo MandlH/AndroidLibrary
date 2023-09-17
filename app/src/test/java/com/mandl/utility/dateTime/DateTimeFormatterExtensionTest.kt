@@ -5,6 +5,8 @@ import org.junit.Test
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.util.*
 
 class DateTimeFormatterExtensionTest {
     @Test
@@ -116,4 +118,20 @@ class DateTimeFormatterExtensionTest {
         Assert.assertEquals(5L, daysDifference) // Use Long instead of Int
     }
 
+    @Test
+    fun testGetTimeZoneOffset() {
+        // Define a test date in UTC
+        val utcDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        utcDateFormat.timeZone = TimeZone.getTimeZone("UTC")
+        val inputDate = utcDateFormat.parse("2023-09-15 12:00:00")
+
+        // Get the offset for New York time zone (Eastern Time Zone)
+        val newYorkTimeZoneId = "America/New_York"
+        val offset = inputDate.getTimeZoneOffset(newYorkTimeZoneId)
+
+        // Expected offset for New York time zone on the same moment
+        val expectedOffset = ZoneOffset.ofHours(-4)
+
+        Assert.assertEquals(expectedOffset, offset)
+    }
 }
