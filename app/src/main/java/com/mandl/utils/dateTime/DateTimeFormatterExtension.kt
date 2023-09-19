@@ -1,4 +1,4 @@
-package com.mandl.utility.dateTime
+package com.mandl.utils.dateTime
 
 import java.time.*
 import java.time.format.DateTimeFormatter

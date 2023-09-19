@@ -1,4 +1,4 @@
-package com.mandl.utility.dateTime
+package com.mandl.utils.dateTime
 
 import org.junit.Assert
 import org.junit.Test
