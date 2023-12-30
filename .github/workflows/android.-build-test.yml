@@ -47,6 +47,6 @@ jobs:
       run: |
         docker buildx create --use
         docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        docker buildx build --platform linux/amd64,linux/arm64 -t mandlh/android-library -f Dockerfile .
-        docker push mandlh/android-library:latest  # Specify the tag (e.g., "latest" or any other tag you want to use)
+        docker buildx build --platform linux/amd64,linux/arm64 -t mandlh/android-library:latest -f Dockerfile .
+        docker push mandlh/android-library:latest
 
