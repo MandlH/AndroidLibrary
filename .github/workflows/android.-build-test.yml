@@ -24,6 +24,9 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
+    - name: Grant execute permissions to gradlew
+      run: chmod +x ./AndroidLibrary/gradlew
+
     - name: Build with Gradle
       run: ./AndroidLibrary/gradlew build
 
