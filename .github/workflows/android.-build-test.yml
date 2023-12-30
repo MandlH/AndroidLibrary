@@ -34,4 +34,4 @@ jobs:
       run: ./AndroidLibrary/gradlew build
 
     - name: Run Utils Tests
-      run: ./AndroidLibrary/AndroidLibrary/gradlew :utils:testDebugUnitTest  
+      run: ./AndroidLibrary/gradlew :utils:testDebugUnitTest
