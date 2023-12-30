@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main
-      - ci-cd
+      - docker-test
   pull_request:
     branches:
       - main
-      - ci-cd
+      - docker-test
 
 jobs:
   build:
