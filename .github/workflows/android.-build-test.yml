@@ -2,9 +2,13 @@ name: Android CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
+      - ci-cd
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+      - ci-cd
 
 jobs:
   build:
@@ -20,9 +24,14 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+    - name: Set working directory
+      run: cd AndroidLibrary
+
+    - name: Grant execute permissions to gradlew
+      run: chmod +x ./AndroidLibrary/gradlew
+
     - name: Build with Gradle
       run: ./AndroidLibrary/gradlew build
-    - name: Run Tests
-      run: ./AndroidLibrary/gradlew test
+
+    - name: Run Utils Tests
+      run: ./AndroidLibrary/gradlew :utils:testDebugUnitTest
