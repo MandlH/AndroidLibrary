@@ -57,3 +57,7 @@ jobs:
 
     - name: Build APK
       run: ./gradlew :app:assembleDebug
+
+    - name: Notify Success
+      if: success()
+      run: echo "Build and APK creation were successful!"
