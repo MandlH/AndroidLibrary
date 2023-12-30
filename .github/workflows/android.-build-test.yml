@@ -56,4 +56,13 @@ jobs:
     - name: Retry Pull Image
       run: docker pull mandlh/android-library:latest
 
+  notify-success:
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Send success notification
+      if: success()
+      run: |
+        echo "Build and deploy were successful!"
+
 
