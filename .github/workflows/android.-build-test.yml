@@ -53,4 +53,7 @@ jobs:
         docker buildx build --platform linux/amd64,linux/arm64 -t mandlh/android-library:latest -f Dockerfile . --output type=registry
         docker push mandlh/android-library:latest
 
+    - name: Retry Pull Image
+      run: docker pull mandlh/android-library:latest
+
 
