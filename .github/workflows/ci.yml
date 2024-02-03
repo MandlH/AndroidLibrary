@@ -36,6 +36,9 @@ jobs:
         chmod +x ./.github/workflows/ci/build.sh
         chmod +x ./.github/workflows/ci/run_tests.sh
 
+    - name: Display current directory
+      run: pwd
+
     - name: Build and Test
       run: |
         ./.github/workflows/ci/build.sh
