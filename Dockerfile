@@ -11,6 +11,9 @@ COPY gradle /app/gradle
 # Download dependencies to cache them in Docker layer
 RUN ./gradlew --version
 
+# Add executable permissions to gradlew
+RUN chmod +x ./gradlew
+
 # Copy the entire project
 COPY . /app/
 
