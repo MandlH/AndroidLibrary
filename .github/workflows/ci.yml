@@ -4,12 +4,11 @@ on:
   push:
     branches:
       - main
-      - ci-cd
-      - testing
+      - env_testing
+      - env_prod
   pull_request:
     branches:
       - main
-      - ci-cd
 
 jobs:
   build:
