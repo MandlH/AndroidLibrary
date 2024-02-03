@@ -2,7 +2,7 @@
 
 # Script to deploy the Dockerized app to Blue or Green environment based on Git branch
 BRANCH=$(git branch --show-current)
-IMAGE_NAME="androidLibrary"
+IMAGE_NAME="androidlibrary"  # Adjust the repository name as needed
 
 if [ "$BRANCH" == "main" ] || [ "$BRANCH" == "env_testing" ]; then
   echo "Deploying to Blue environment..."
