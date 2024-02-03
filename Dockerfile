@@ -8,11 +8,12 @@ WORKDIR /app
 COPY build.gradle settings.gradle gradlew /app/
 COPY gradle /app/gradle
 
-# Download dependencies to cache them in Docker layer
-RUN ./gradlew --version
 
 # Add executable permissions to gradlew
 RUN chmod +x ./gradlew
+
+# Download dependencies to cache them in Docker layer
+RUN ./gradlew --version
 
 # Copy the entire project
 COPY . /app/
