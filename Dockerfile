@@ -9,7 +9,7 @@ COPY build.gradle settings.gradle gradlew /app/
 COPY gradle /app/gradle
 
 # Add executable permissions to gradlew
-RUN chmod +x ./gradlew
+RUN chmod +x ./gradlew && ./gradlew assembleDebug
 
 # Download dependencies to cache them in Docker layer
 RUN ./gradlew --version
