@@ -30,10 +30,10 @@ jobs:
 
     - name: Grant execute permissions to scripts
       run: |
-        chmod +x ./ci/build.sh
-        chmod +x ./ci/run_tests.sh
+        chmod +x ci/build.sh
+        chmod +x ci/run_tests.sh
 
     - name: Build and Test
       run: |
-        ./ci/build.sh
-        ./ci/run_tests.sh
+        ci/build.sh
+        ci/run_tests.sh
