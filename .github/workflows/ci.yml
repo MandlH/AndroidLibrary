@@ -25,10 +25,8 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '11'
-        # Use AdoptOpenJDK distribution for setting up Java environment
-        distribution: 'temurin'
-        # Cache the Gradle dependencies to improve build performance
-        cache: gradle
+        distribution: 'temurin' # Use AdoptOpenJDK distribution for setting up Java environment
+        cache: gradle # Cache the Gradle dependencies to improve build performance
 
     - name: Build and Test
       run: |
