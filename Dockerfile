@@ -12,15 +12,13 @@ COPY gradle /app/gradle
 RUN chmod +x ./gradlew
 
 # Download dependencies to cache them in Docker layer
-# It's a good practice to run dependencies separately to leverage Docker's caching mechanism
 RUN ./gradlew --version
 
 # Copy the entire project
 COPY . /app/
 
 # Build the Android app
-RUN sdkmanager "platform-tools" "platforms;android-30" "build-tools;30.0.3"
 RUN ./gradlew assembleDebug
 
-# Start the Android app (update this according to your actual app structure)
+# Start the Android app (adjust the path and command based on your app structure)
 CMD ["adb", "install", "-r", "app/build/outputs/apk/debug/app-debug.apk"]
