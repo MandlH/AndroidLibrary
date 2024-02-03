@@ -28,18 +28,11 @@ jobs:
         distribution: 'temurin' # Use AdoptOpenJDK distribution for setting up Java environment
         cache: gradle # Cache the Gradle dependencies to improve build performance
 
-    - name: Display current directory
-      run: pwd
+    - name: Grant execute permissions to gradlew
+      run: chmod +x ./gradlew
 
-    - name: Grant execute permissions to scripts
-      run: |
-        chmod +x ./.github/workflows/ci/build.sh
-        chmod +x ./.github/workflows/ci/run_tests.sh
+    - name: Build with Gradle
+      run: ./gradlew build
 
-    - name: Display current directory
-      run: pwd
-
-    - name: Build and Test
-      run: |
-        ./.github/workflows/ci/build.sh
-        ./.github/workflows/ci/run_tests.sh
+    - name: Run Utils Tests
+      run: ./gradlew :utils:testDebugUnitTest
