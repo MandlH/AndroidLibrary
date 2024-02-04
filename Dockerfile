@@ -1,6 +1,16 @@
 # Use a base image with OpenJDK 11 and Android SDK
 FROM openjdk:11-jdk-slim
 
+# Install required dependencies
+RUN apt-get update -qq \
+    && apt-get install -y --no-install-recommends unzip curl openjdk-11-jre-headless \
+    && rm -rf /var/lib/apt/lists/* \
+    && mkdir -p /android-sdk \
+    && curl -L https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -o /android-sdk/sdk-tools-linux.zip \
+    && unzip -qq /android-sdk/sdk-tools-linux.zip -d /android-sdk \
+    && rm /android-sdk/sdk-tools-linux.zip \
+    && yes | /android-sdk/tools/bin/sdkmanager --licenses
+
 # Set the working directory
 WORKDIR /app
 
@@ -17,29 +27,14 @@ RUN /app/gradlew --version
 # Copy the entire project
 COPY . /app/
 
-# Blue-Green Deployment Script
-COPY cd/deploy.sh /app/deploy.sh
-RUN chmod +x /app/deploy.sh
-
-# Install Android SDK
-RUN apt-get update -qq \
-    && apt-get install -y --no-install-recommends unzip curl \
-    && rm -rf /var/lib/apt/lists/* \
-    && mkdir -p /android-sdk \
-    && curl -L https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -o /android-sdk/sdk-tools-linux.zip \
-    && unzip -qq /android-sdk/sdk-tools-linux.zip -d /android-sdk \
-    && rm /android-sdk/sdk-tools-linux.zip \
-    && yes | /android-sdk/tools/bin/sdkmanager --licenses
-
-# Set Android SDK environment variables
-ENV ANDROID_HOME /android-sdk
-ENV PATH $PATH:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator
-
 # Build the Android app
-RUN chmod +x /app/gradlew
 RUN /app/gradlew assembleDebug
 
 EXPOSE 8080
+
+# Blue-Green Deployment Script
+COPY deploy.sh /app/deploy.sh
+RUN chmod +x /app/deploy.sh
 
 # Start the Android app with Blue-Green deployment
 CMD ["/app/deploy.sh"]
