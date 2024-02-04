@@ -13,12 +13,14 @@ if [ "$BRANCH" == "main" ] || [ "$BRANCH" == "env_testing" ]; then
   docker stop $IMAGE_NAME-green || true
   docker run -d -p 8080:8080 --name $IMAGE_NAME-blue $IMAGE_NAME:$BLUE_TAG
   docker rm $IMAGE_NAME-green || true
+  docker push $IMAGE_NAME:$BLUE_TAG
 elif [ "$BRANCH" == "env_prod" ]; then
   echo "Deploying to Green environment (Production)..."
   docker build -t $IMAGE_NAME:$GREEN_TAG .
   docker stop $IMAGE_NAME-blue || true
   docker run -d -p 8080:8080 --name $IMAGE_NAME-green $IMAGE_NAME:$GREEN_TAG
   docker rm $IMAGE_NAME-blue || true
+  docker push $IMAGE_NAME:$GREEN_TAG
 else
   echo "Unsupported branch for deployment."
   exit 1
