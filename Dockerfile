@@ -20,11 +20,11 @@ COPY . /app/
 # Build the Android app
 RUN /app/gradlew assembleDebug
 
-EXPOSE 8080
-
 # Blue-Green Deployment Script
-COPY deploy.sh /app/deploy.sh
+COPY cd/deploy.sh /app/deploy.sh
 RUN chmod +x /app/deploy.sh
+
+EXPOSE 8080
 
 # Start the Android app with Blue-Green deployment
 CMD ["/app/deploy.sh"]
