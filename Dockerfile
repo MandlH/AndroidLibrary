@@ -23,10 +23,10 @@ RUN chmod +x /app/deploy.sh
 
 # Install Android SDK
 RUN apt-get update -qq \
-    && apt-get install -y --no-install-recommends unzip \
+    && apt-get install -y --no-install-recommends unzip curl \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir -p /android-sdk \
-    && wget -q https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -O /android-sdk/sdk-tools-linux.zip \
+    && curl -L https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -o /android-sdk/sdk-tools-linux.zip \
     && unzip -qq /android-sdk/sdk-tools-linux.zip -d /android-sdk \
     && rm /android-sdk/sdk-tools-linux.zip \
     && yes | /android-sdk/tools/bin/sdkmanager --licenses
