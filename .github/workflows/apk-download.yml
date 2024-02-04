@@ -11,15 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-    - name: Download Artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: app-artifact
-        path: app
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: app-artifact
+          path: app
 
-
-    - name: Display Contents
-      run: ls -R app
+      - name: Display Contents
+        run: ls -R app

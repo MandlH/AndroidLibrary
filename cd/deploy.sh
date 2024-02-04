@@ -2,7 +2,7 @@
 
 # Script to deploy the Dockerized app with Blue-Green deployment strategy
 BRANCH=$(git branch --show-current)
-IMAGE_NAME="androidlibrary" 
+IMAGE_NAME="mandlh/android-library"
 
 BLUE_TAG="blue"
 GREEN_TAG="green"

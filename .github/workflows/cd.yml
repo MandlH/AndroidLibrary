@@ -11,18 +11,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSEORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-    - name: set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin' # Use AdoptOpenJDK distribution for setting up Java environment
-        cache: gradle # Cache the Gradle dependencies to improve build performance
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-    - name: Grant execute permissions to deploy
-      run: chmod +x ./cd/deploy.sh
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+          cache: gradle
 
-    - name: Build Docker Image
-      run: ./cd/deploy.sh
+      - name: Grant execute permissions to deploy script
+        run: chmod +x ./deploy.sh
+
+      - name: Deploy Dockerized Android app
+        run: ./deploy.sh

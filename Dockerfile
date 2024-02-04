@@ -9,18 +9,22 @@ COPY build.gradle settings.gradle gradlew /app/
 COPY gradle /app/gradle
 
 # Add executable permissions to gradlew
-RUN chmod +x ./gradlew
+RUN chmod +x /app/gradlew
 
 # Download dependencies to cache them in Docker layer
-RUN ./gradlew --version
+RUN /app/gradlew --version
 
 # Copy the entire project
 COPY . /app/
 
 # Build the Android app
-RUN ./gradlew assembleDebug
+RUN /app/gradlew assembleDebug
 
 EXPOSE 8080
 
-# Start the Android app (adjust the path and command based on your app structure)
-CMD ["./gradlew", "installDebug"]
+# Blue-Green Deployment Script
+COPY deploy.sh /app/deploy.sh
+RUN chmod +x /app/deploy.sh
+
+# Start the Android app with Blue-Green deployment
+CMD ["/app/deploy.sh"]
