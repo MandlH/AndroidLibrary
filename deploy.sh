@@ -47,4 +47,23 @@ elif [ "$BRANCH" == "env_prod" ]; then
   # Run the green container
   docker run -d -p 8080:80 --name $IMAGE_NAME-green $IMAGE_NAME:$GREEN_TAG
 
- 
+  # Wait for the container to be in the 'running' state
+  while [ "$(docker inspect -f '{{.State.Status}}' $IMAGE_NAME-green)" != "running" ]; do
+    sleep 1
+  done
+
+  # Download the APK artifacts from the running container
+  docker cp $IMAGE_NAME-green:/usr/share/nginx/html/app-debug.apk /tmp/artifacts
+  cp /tmp/artifacts/app-debug.apk /usr/share/nginx/html/latest.apk
+
+  # Push the green image to the registry
+  docker push $IMAGE_NAME:$GREEN_TAG
+
+  # Cleanup
+  docker stop $IMAGE_NAME-green || true
+  docker rm $IMAGE_NAME-green || true
+
+else
+  echo "Unsupported branch for deployment."
+  exit 1
+fi
