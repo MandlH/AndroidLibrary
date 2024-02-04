@@ -8,9 +8,7 @@ RUN rm -f /etc/nginx/conf.d/*
 RUN mkdir -p /usr/share/nginx/html/
 
 # Copy the APK file into the image
-COPY ./app/build/outputs/apk/debug/app-debug.apk /usr/share/nginx/html/
-
-RUN touch /usr/share/nginx/html/t.txt
+COPY app/build/outputs/apk/debug/app-debug.apk /usr/share/nginx/html/
 
 # Expose port 80 for serving the APK files
 EXPOSE 80
