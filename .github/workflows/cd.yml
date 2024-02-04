@@ -16,9 +16,6 @@ jobs:
 
       - name: Set up Docker
         uses: docker/setup-docker@v2
-        with:
-          dockerfile: Dockerfile
-          context: .
       
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
