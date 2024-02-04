@@ -14,6 +14,8 @@ GREEN_TAG="green"
 # Create a temporary directory for the build context
 TEMP_DIR=$(mktemp -d)
 
+echo "$BRANCH"
+
 # Copy Dockerfile and necessary files to the temporary directory
 cp Dockerfile $TEMP_DIR/
 cp -r app $TEMP_DIR/
