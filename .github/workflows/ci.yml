@@ -4,12 +4,8 @@ on:
   push:
     branches:
       - main
-      - ci-cd
-      - testing
-  pull_request:
-    branches:
-      - main
-      - ci-cd
+      - env_testing
+      - env_prod
 
 jobs:
   build:

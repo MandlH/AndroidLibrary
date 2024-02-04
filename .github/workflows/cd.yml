@@ -25,7 +25,7 @@ jobs:
           cache: gradle
 
       - name: Grant execute permissions to deploy script
-        run: chmod +x ./deploy.sh
+        run: chmod +x ./cd/deploy.sh
 
       - name: Deploy Dockerized Android app
-        run: ./deploy.sh
+        run: ./cd/deploy.sh
