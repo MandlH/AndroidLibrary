@@ -17,6 +17,9 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       
+      - name: Grant execute permissions to deploy.sh
+        run: chmod +x deploy.sh
+
       - name: Deploy to Blue-Green
         run: ./deploy.sh
         env:
