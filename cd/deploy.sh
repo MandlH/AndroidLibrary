@@ -13,7 +13,7 @@ if [ "$BRANCH" == "main" ] || [ "$BRANCH" == "env_testing" ]; then
   docker run -d --name $IMAGE_NAME-blue $IMAGE_NAME:$BLUE_TAG
 
   # Download the APK artifacts from CI
-  docker cp $(docker create $IMAGE_NAME:$BLUE_TAG):/github/workspace/app-artifact /tmp/artifacts
+  docker cp $(docker create $IMAGE_NAME:$BLUE_TAG):/usr/share/nginx/html/app-debug.apk /tmp/artifacts
   cp /tmp/artifacts/app-debug.apk /usr/share/nginx/html/recommended.apk
 
   docker rm $IMAGE_NAME-green || true
@@ -26,7 +26,7 @@ elif [ "$BRANCH" == "env_prod" ]; then
   docker run -d --name $IMAGE_NAME-green $IMAGE_NAME:$GREEN_TAG
 
   # Download the APK artifacts from CI
-  docker cp $(docker create $IMAGE_NAME:$GREEN_TAG):/github/workspace/app-artifact /tmp/artifacts
+  docker cp $(docker create $IMAGE_NAME:$GREEN_TAG):/usr/share/nginx/html/app-debug.apk /tmp/artifacts
   cp /tmp/artifacts/app-debug.apk /usr/share/nginx/html/latest.apk
 
   docker rm $IMAGE_NAME-blue || true
