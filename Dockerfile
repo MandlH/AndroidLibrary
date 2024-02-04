@@ -21,6 +21,20 @@ COPY . /app/
 COPY cd/deploy.sh /app/deploy.sh
 RUN chmod +x /app/deploy.sh
 
+# Install Android SDK
+RUN apt-get update -qq \
+    && apt-get install -y --no-install-recommends unzip \
+    && rm -rf /var/lib/apt/lists/* \
+    && mkdir -p /android-sdk \
+    && wget -q https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -O /android-sdk/sdk-tools-linux.zip \
+    && unzip -qq /android-sdk/sdk-tools-linux.zip -d /android-sdk \
+    && rm /android-sdk/sdk-tools-linux.zip \
+    && yes | /android-sdk/tools/bin/sdkmanager --licenses
+
+# Set Android SDK environment variables
+ENV ANDROID_HOME /android-sdk
+ENV PATH $PATH:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator
+
 # Build the Android app
 RUN chmod +x /app/gradlew
 RUN /app/gradlew assembleDebug
