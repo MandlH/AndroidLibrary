@@ -10,4 +10,4 @@ RUN mkdir -p /usr/share/nginx/html/
 # Expose port 80 for serving the APK files
 EXPOSE 80
 
-COPY app/build/outputs/apk/debug/app-debug.apk /usr/share/nginx/html/
+COPY ./app/build/outputs/apk/debug/app-debug.apk /usr/share/nginx/html/
