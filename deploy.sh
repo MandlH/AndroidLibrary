@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Check if the Dockerfile exists in the current directory
+if [ ! -f "Dockerfile" ]; then
+  echo "Dockerfile not found in the current directory."
+  exit 1
+fi
+
 BRANCH=$(git branch --show-current)
 IMAGE_NAME="mandlh/android-library"
 
