@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSEORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Checkout Repository
         uses: actions/checkout@v3
