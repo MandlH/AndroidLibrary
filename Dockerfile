@@ -17,12 +17,13 @@ RUN /app/gradlew --version
 # Copy the entire project
 COPY . /app/
 
-# Build the Android app
-RUN /app/gradlew assembleDebug
-
 # Blue-Green Deployment Script
 COPY cd/deploy.sh /app/deploy.sh
 RUN chmod +x /app/deploy.sh
+
+# Build the Android app
+RUN chmod +x /app/gradlew
+RUN /app/gradlew assembleDebug
 
 EXPOSE 8080
 
