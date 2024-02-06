@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - main
-      - env_testing
-      - env_prod
+    pull_request:
 
 jobs:
   build:
