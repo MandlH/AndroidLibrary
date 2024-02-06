@@ -6,7 +6,7 @@ if [ ! -f "Dockerfile" ]; then
   exit 1
 fi
 
-BRANCH=$(git branch --show-current)
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
 IMAGE_NAME="mandlh/android-library"
 BLUE_TAG="blue"
 GREEN_TAG="green"
@@ -14,23 +14,25 @@ GREEN_TAG="green"
 # Create a temporary directory for the build context
 TEMP_DIR=$(mktemp -d)
 
-echo "$BRANCH"
 
 # Copy Dockerfile and necessary files to the temporary directory
 cp Dockerfile $TEMP_DIR/
 cp -r app $TEMP_DIR/
 
 if [[ "$BRANCH" == "main" || "$BRANCH" == "env_testing" ]]; then
+  echo "$BRANCH"
   echo "Building and pushing image for Blue environment..."
   docker build -t $IMAGE_NAME:$BLUE_TAG $TEMP_DIR
   docker push $IMAGE_NAME:$BLUE_TAG
 
 elif [ "$BRANCH" == "env_prod" ]; then
+  echo "$BRANCH"
   echo "Building and pushing image for Green environment (Production)..."
   docker build -t $IMAGE_NAME:$GREEN_TAG $TEMP_DIR
   docker push $IMAGE_NAME:$GREEN_TAG
 
 else
+  echo "$BRANCH"
   echo "Unsupported branch for deployment."
   exit 1
 fi
